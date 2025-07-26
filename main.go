@@ -21,7 +21,7 @@ func main() {
 	startTime := time.Now()
 
 	if len(os.Args) < 2 {
-		fmt.Println(`Goblo v1.0.3
+		fmt.Println(`Goblo v1.0.2
 
 +----------+-----------------------------------------+
 | Commands |                  Usage                  |

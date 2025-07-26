@@ -67,10 +67,6 @@ example
 
 ### Posts
 
-> The contents of the `<head>` tag are pasted into the `<head>` tag in the template.
-
-> The contents of the `<content>` tag are pasted into the `{{content}}` tag in the template.
-
 ```html
 <head>
   <meta name="title" content="An awesome post" />
@@ -86,6 +82,10 @@ example
   </article>
 </content>
 ```
+
+The contents of the `<head>` tag are pasted into the `<head>` tag in the template.
+
+The contents of the `<content>` tag are pasted into the `{{content}}` tag in the template.
 
 ## Templating
 

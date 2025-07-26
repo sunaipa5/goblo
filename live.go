@@ -160,6 +160,7 @@ func watchFiles(dir string) {
 		if err != nil {
 			return err
 		}
+
 		if info.IsDir() {
 			if filepath.Base(path) == "dist" {
 				return filepath.SkipDir
@@ -177,7 +178,10 @@ func watchFiles(dir string) {
 			reloadTimer.Stop()
 		}
 		reloadTimer = time.AfterFunc(100*time.Millisecond, func() {
-			build()
+			if err := live_build(); err != nil {
+				werror("Failed to build", err)
+				return
+			}
 			fmt.Println("Reload at", time.Now().Format("15:04:05"))
 			broadcastReload()
 		})
@@ -186,6 +190,9 @@ func watchFiles(dir string) {
 	for {
 		select {
 		case event := <-watcher.Events:
+			if strings.Contains(event.Name, "/dist/") || strings.HasSuffix(event.Name, "/dist") {
+				continue
+			}
 			if event.Op&(fsnotify.Write|fsnotify.Create|fsnotify.Remove) != 0 {
 				scheduleReload()
 			}
@@ -193,6 +200,7 @@ func watchFiles(dir string) {
 			log.Println("watch error:", err)
 		}
 	}
+
 }
 
 func broadcastReload() {

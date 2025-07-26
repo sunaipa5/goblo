@@ -8,12 +8,14 @@ import (
 )
 
 type Config struct {
-	Template string `json:"template"`
+	SiteUrl          string            `json:"site-url"`
+	SiteTitle        string            `json:"site-title"`
+	TemplateSettings map[string]string `json:"template-settings"`
 }
 
 var projectPath string
 
-var config map[string]Config
+var config Config
 
 func main() {
 	startTime := time.Now()
@@ -57,7 +59,11 @@ Live command flags:
 		buildFlags.Parse(args)
 
 		projectPath = path
-		build()
+
+		if err := build(); err != nil {
+			werror("Failed to build", err)
+			return
+		}
 
 	case "create":
 		createFlags := flag.NewFlagSet("create", flag.ExitOnError)
@@ -92,7 +98,10 @@ Live command flags:
 			projectPath = "."
 		}
 
-		build()
+		if err := build(); err != nil {
+			werror("Failed to build", err)
+			return
+		}
 
 		if err := live(projectPath, *port, *openb); err != nil {
 			werror("Failed to start live server", err)

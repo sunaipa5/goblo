@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 )
@@ -15,7 +14,13 @@ func create(path string) error {
 		}
 	}
 
-	goblo_json := `{"*": {"template": "default"}}`
+	goblo_json := `{
+  "site-url": "https://example.com",
+  "site-title": "title",
+  "template-settings": {
+    "*": "default"
+  }
+}`
 	if err := os.WriteFile(filepath.Join(path, "goblo.json"), []byte(goblo_json), 0755); err != nil {
 		return err
 	}
@@ -66,8 +71,6 @@ func create(path string) error {
 </footer>
 `
 
-	fmt.Println(filepath.Join(path, "templates", "default", "footer.html"))
-
 	if err := os.WriteFile(filepath.Join(path, "templates", "default", "footer.html"), []byte(footer_html), 0755); err != nil {
 		return err
 	}
@@ -90,6 +93,7 @@ body {
     <meta name="title" content="An awesome post" />
     <meta name="date" content="2025-07-25" />
     <meta name="description" content="New post!" />
+    <meta itemprop="image" content="/image.jpg" />
     <title>Title</title>
 </head>
 

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -151,4 +152,41 @@ func extractHeadAndContent(htmlStr string) (head string, content string) {
 	content = htmlStr[contentStart+len("<content>") : contentEnd]
 
 	return strings.TrimSpace(head), strings.TrimSpace(content)
+}
+
+// title, date, description
+func findMeta(html string) (string, string, string, string) {
+	re := regexp.MustCompile(`<meta\s+(?:name|itemprop)="(title|date|description|image)"[^>]*content="([^"]+)"`)
+	matches := re.FindAllStringSubmatch(html, -1)
+
+	result := map[string]string{}
+	for _, m := range matches {
+		if len(m) == 3 {
+			result[m[1]] = m[2]
+		}
+	}
+
+	return result["title"], result["date"], result["description"], result["image"]
+}
+
+func getImageMimeType(imageURL string) string {
+	ext := strings.ToLower(path.Ext(imageURL))
+	if ext == "" {
+		return "image/*"
+	}
+
+	ext = ext[1:]
+
+	return "image/" + ext
+}
+
+func resetDir(path string) error {
+	if err := os.RemoveAll(path); err != nil {
+		return err
+	}
+
+	if err := os.MkdirAll(path, 0755); err != nil {
+		return err
+	}
+	return nil
 }

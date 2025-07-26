@@ -1,0 +1,10 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https:/example.com/index.html</loc>
+    <lastmod>2025-07-26</lastmod>
+  </url>
+  <url>
+    <loc>https:/example.com/posts/first_post.html</loc>
+    <lastmod>2025-07-26</lastmod>
+  </url>
+</urlset>

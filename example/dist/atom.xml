@@ -1,0 +1,16 @@
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>title</title>
+  <id>https://example.com</id>
+  <updated>2025-07-26T18:55:17+03:00</updated>
+  <link href="https://example.com/atom.xml" rel="self"></link>
+  <link href="https://example.com"></link>
+  <entry>
+    <title>An awesome post</title>
+    <link href="https://example.com/posts/first_post.html" rel="alternate"></link>
+    <id>first_post.html</id>
+    <updated>2025-07-25</updated>
+    <summary>New post!</summary>
+    <content type="html">&lt;article&gt;&#xA;        &lt;h1&gt;This a post&lt;/h1&gt;&#xA;        &lt;p&gt;Welcome to the post&lt;/p&gt;&#xA;    &lt;/article&gt;</content>
+    <enclosure url="https://example.com/image.jpg" length="1" type="image/jpg"></enclosure>
+  </entry>
+</feed>

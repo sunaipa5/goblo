@@ -7,6 +7,8 @@ Fast and easy static site generator written in Go
 - Easy to use
 - Easy to learn
 - HTML based
+- Auto sitemap.xml
+- Auto atom.xml (rss feed)
 
 ## Quick start
 
@@ -72,6 +74,7 @@ example
   <meta name="title" content="An awesome post" />
   <meta name="date" content="2025-07-25" />
   <meta name="description" content="New post!" />
+  <meta itemprop="image" content="/image.jpg" />
   <title>Title</title>
 </head>
 
@@ -86,6 +89,8 @@ example
 The contents of the `<head>` tag are pasted into the `<head>` tag in the template.
 
 The contents of the `<content>` tag are pasted into the `{{content}}` tag in the template.
+
+The meta tags used to create an Atom feed (RSS)
 
 ## Templating
 
@@ -113,3 +118,20 @@ First, create a folder in the templates folder. The name of this folder will be 
 `{{content}}` equal to `<content></content>` in posts
 
 `{{*.html}}` equal to `*.html` files in template folder
+
+## goblo.json
+
+```json
+{
+  "site-url": "https://example.com",
+  "site-title": "title",
+  "template-settings": {
+    "*": "default"
+    "first-post.html":"modern"
+  }
+}
+```
+
+`template-settings` contains only `posts/` path
+
+`siteUrl`

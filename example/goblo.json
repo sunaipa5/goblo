@@ -1,1 +1,7 @@
-{"*": {"template": "default"}}
+{
+  "site-url": "https://example.com",
+  "site-title": "title",
+  "template-settings": {
+    "*": "default"
+  }
+}

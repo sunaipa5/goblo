@@ -1,4 +1,4 @@
-module goblo
+module github.com/sunaipa5/goblo
 
 go 1.23.0
 

@@ -67,7 +67,7 @@ example
 
 ## Usage
 
-### Posts
+#### Posts
 
 ```html
 <head>
@@ -103,7 +103,7 @@ default
 
 First, create a folder in the templates folder. The name of this folder will be the template name, which you can use with the config.
 
-### index.tmpl
+#### index.tmpl
 
 ```html
 <!doctype html>
@@ -119,7 +119,7 @@ First, create a folder in the templates folder. The name of this folder will be 
 
 `{{*.html}}` equal to `*.html` files in template folder
 
-## goblo.json
+## Configuration
 
 ```json
 {

@@ -1,6 +1,3 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-example/*html linguist-vendored
-example/*tmpl linguist-vendored
-example/*css linguist-vendored
-example/*json linguist-vendored
+example/** linguist-vendored

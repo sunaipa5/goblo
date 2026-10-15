@@ -1,0 +1,61 @@
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: goblo
+    main: .
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w
+      - -X main.version={{ if .IsSnapshot }}{{ .Version }}-dev{{ else }}{{ .Version }}{{ end }}
+    goarch:
+      - amd64
+      - arm64
+      - "386"
+
+archives:
+  - formats: [tar.gz]
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Version }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+
+nfpms:
+  - id: goblo-packages
+    package_name: goblo
+    builds:
+      - goblo
+    vendor: Sunaipa
+    homepage: https://github.com/sunaipa5/goblo
+    maintainer: Sunaipa <https://github.com/sunaipa5>
+    description: Fast and easy static site builder written in Go.
+    license: GPL-3.0-only
+    formats:
+      - deb
+      - rpm
+      - apk
+    bindir: /usr/bin
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"

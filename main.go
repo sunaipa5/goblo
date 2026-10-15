@@ -13,6 +13,8 @@ type Config struct {
 	TemplateSettings map[string]string `json:"template-settings"`
 }
 
+var version = "dev"
+
 var projectPath string
 
 var config Config
@@ -21,25 +23,7 @@ func main() {
 	startTime := time.Now()
 
 	if len(os.Args) < 2 {
-		fmt.Println(`Goblo v1.0.2
-
-+----------+-----------------------------------------+
-| Commands |                  Usage                  |
-+----------+-----------------------------------------+
-| create   | ./project-dir                           |
-| build    | ./project-dir                           |
-| live     |  ./project-dir                          |
-+----------+-----------------------------------------+
-
-Live command flags:
-+--------------+----------------------------+---------+
-|    Flags     |            Usage           | Default |
-+--------------+----------------------------+---------+
-| --port=1111  | live port                  | 5151    |
-| --open=false | open browser automatically | true    |
-+--------------+----------------------------+---------+`)
-		fmt.Fprintln(os.Stderr, "Usage: goblo <command> [path]")
-		fmt.Fprintln(os.Stderr, "Commands: build, create")
+		writeInfo()
 		os.Exit(1)
 	}
 
@@ -51,6 +35,9 @@ Live command flags:
 	}
 
 	switch cmd {
+	case "help":
+		writeInfo()
+		os.Exit(1)
 	case "build":
 		buildFlags := flag.NewFlagSet("build", flag.ExitOnError)
 
@@ -67,8 +54,8 @@ Live command flags:
 			return
 		}
 
-	case "create":
-		createFlags := flag.NewFlagSet("create", flag.ExitOnError)
+	case "init":
+		createFlags := flag.NewFlagSet("init", flag.ExitOnError)
 
 		args := []string{}
 		if len(os.Args) > 3 {
@@ -78,7 +65,7 @@ Live command flags:
 
 		projectPath = path
 		if err := create(path); err != nil {
-			werror("Failed to create project", err)
+			werror("Failed to initialize project", err)
 			return
 		}
 	case "live":
@@ -116,4 +103,26 @@ Live command flags:
 
 	elapsed := time.Since(startTime)
 	fmt.Printf("Done %s\n", elapsed)
+}
+
+func writeInfo() {
+	fmt.Println(`Goblo ` + version + `
+
++----------+-----------------------------------------+
+| Commands |                  Usage                  |
++----------+-----------------------------------------+
+| init     | ./project-dir                           |
+| build    | ./project-dir                           |
+| live     | ./project-dir                           |
++----------+-----------------------------------------+
+
+Live command flags:
++--------------+----------------------------+---------+
+|    Flags     |            Usage           | Default |
++--------------+----------------------------+---------+
+| --port=1111  | live port                  | 5151    |
+| --open=false | open browser automatically | true    |
++--------------+----------------------------+---------+`)
+	fmt.Fprintln(os.Stderr, "Usage: goblo <command> [path]")
+	fmt.Fprintln(os.Stderr, "Commands: build, init")
 }

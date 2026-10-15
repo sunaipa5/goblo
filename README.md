@@ -15,7 +15,7 @@ Fast and easy static site generator written in Go
 ```bash
 go install github.com/sunaipa5/goblo@latest
 
-goblo create
+goblo init
 goblo live
 ```
 
@@ -26,7 +26,7 @@ $ goblo
 +----------+-----------------------------------------+
 | Commands |                  Usage                  |
 +----------+-----------------------------------------+
-| create   | ./project-dir                           |
+| init     | ./project-dir                           |
 | build    | ./project-dir                           |
 | live     |  ./project-dir                          |
 +----------+-----------------------------------------+
@@ -39,7 +39,7 @@ Live command flags:
 | --open=false | open browser automatically | true    |
 +--------------+----------------------------+---------+
 Usage: goblo <command> [path]
-Commands: build, create
+Commands: build, init
 ```
 
 ## Project Tree

@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	json "github.com/json-iterator/go"
+	"encoding/json"
 )
 
 func build() error {

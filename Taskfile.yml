@@ -2,6 +2,9 @@
 
 version: "3"
 
+vars:
+  VERSION: "v1.0.3"
+
 tasks:
   default:
     desc: Print all tasks
@@ -14,6 +17,12 @@ tasks:
   release:
     desc: Build package and release application
     cmd: goreleaser release --clean
+    silent: true
+  create-new-tag:
+    desc: Create new tag and push
+    cmds:
+      - git tag -a {{.VERSION}} - m "{{.VERSION}}"
+      - git push origin
     silent: true
   build:
     cmds:

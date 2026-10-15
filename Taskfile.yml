@@ -21,8 +21,8 @@ tasks:
   create-new-tag:
     desc: Create new tag and push
     cmds:
-      - git tag -a {{.VERSION}} - m "{{.VERSION}}"
-      - git push origin
+      - git tag -a {{.VERSION}} -m "{{.VERSION}}"
+      - git push origin {{.VERSION}}
     silent: true
   build:
     cmds:
